@@ -1,0 +1,27 @@
+@page "{id:int}"
+@model Library.Web.Pages.Books.DeleteModel
+@{
+    ViewData["Title"] = "Видалити книгу";
+}
+
+<h1>Видалити книгу</h1>
+<p class="text-danger">Ви впевнені, що хочете видалити цю книгу?</p>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Назва</dt>
+        <dd class="col-sm-10">@Model.Book.Title</dd>
+
+        <dt class="col-sm-2">Автор</dt>
+        <dd class="col-sm-10">@Model.Book.AuthorFullName</dd>
+        
+        <dt class="col-sm-2">Жанр</dt>
+        <dd class="col-sm-10">@Model.Book.Genre</dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Book.Id" />
+        <input type="submit" value="Видалити" class="btn btn-danger" />
+        <a asp-page="./Index" class="btn btn-secondary">Скасувати</a>
+    </form>
+</div>

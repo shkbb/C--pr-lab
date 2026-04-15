@@ -1,0 +1,54 @@
+@page
+@model Library.Web.Pages.Books.CreateModel
+@{
+    ViewData["Title"] = "Створити книгу";
+}
+
+<h1>Створити нову книгу</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="Book.Title" class="control-label">Назва</label>
+                <input asp-for="Book.Title" class="form-control" />
+                <span asp-validation-for="Book.Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Book.ISBN" class="control-label">ISBN</label>
+                <input asp-for="Book.ISBN" class="form-control" />
+                <span asp-validation-for="Book.ISBN" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Book.PublishedYear" class="control-label">Рік видання</label>
+                <input asp-for="Book.PublishedYear" class="form-control" />
+                <span asp-validation-for="Book.PublishedYear" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Book.Genre" class="control-label">Жанр</label>
+                <input asp-for="Book.Genre" class="form-control" />
+                <span asp-validation-for="Book.Genre" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Book.AuthorId" class="control-label">ID Автора (1 або 2)</label>
+                <input asp-for="Book.AuthorId" class="form-control" />
+                <span asp-validation-for="Book.AuthorId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Створити" class="btn btn-primary" />
+                <a asp-page="Index" class="btn btn-secondary">Назад</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
