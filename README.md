@@ -31,7 +31,7 @@ dotnet run --project Library.Api/Library.Api.csproj
 
 Для запуску клієнтської частини (Razor Pages):
 ```bash
-cd pr15
+cd pr15 
 dotnet run --project Library.Web/Library.Web.csproj
 ```
 Це стосується папок: `pr15`, `lab13`.
