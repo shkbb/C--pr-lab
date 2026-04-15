@@ -30,7 +30,7 @@ public class BooksController : ControllerBase
         var book = _bookService.GetById(id);
         if (book is null)
             return NotFound(new { message = $"Book with id {id} not found." });
-            
+
         return Ok(book);
     }
 

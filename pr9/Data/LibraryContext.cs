@@ -17,7 +17,7 @@ public class LibraryContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Author configuration
+
         modelBuilder.Entity<Author>(entity =>
         {
             entity.HasKey(a => a.Id);
@@ -25,14 +25,14 @@ public class LibraryContext : DbContext
             entity.Property(a => a.LastName).IsRequired().HasMaxLength(50);
         });
 
-        // Book configuration
+        
         modelBuilder.Entity<Book>(entity =>
         {
             entity.HasKey(b => b.Id);
             entity.Property(b => b.Title).IsRequired().HasMaxLength(200);
             entity.Property(b => b.ISBN).HasMaxLength(20);
 
-            // Relationship: Book → Author (many-to-one)
+            
             entity.HasOne(b => b.Author)
                   .WithMany(a => a.Books)
                   .HasForeignKey(b => b.AuthorId)

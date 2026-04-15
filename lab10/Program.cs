@@ -6,11 +6,9 @@ using Microsoft.EntityFrameworkCore;
 Console.WriteLine("=== Library Management System — Лабораторна 10 ===");
 Console.WriteLine("EF Core: 4 сутності, Repository, LINQ з Include/OrderBy/GroupBy\n");
 
-// ─── Setup ────────────────────────────────────────────────────────────────────
 var ctx = new LibraryContext();
 ctx.Database.EnsureCreated();
 
-// Clear all data
 ctx.Loans.RemoveRange(ctx.Loans);
 ctx.Books.RemoveRange(ctx.Books);
 ctx.Members.RemoveRange(ctx.Members);
@@ -19,7 +17,6 @@ ctx.SaveChanges();
 
 var bookRepo = new BookRepository(ctx);
 
-// ─── Seed data ────────────────────────────────────────────────────────────────
 Console.WriteLine("── SEEDING ──────────────────────────────────────────────────");
 
 var a1 = new Author { FirstName = "Тарас", LastName = "Шевченко", BirthYear = 1814 };
@@ -55,12 +52,10 @@ ctx.SaveChanges();
 Console.WriteLine($"  Авторів: {ctx.Authors.Count()}, Книг: {ctx.Books.Count()}, " +
                   $"Читачів: {ctx.Members.Count()}, Позик: {ctx.Loans.Count()}");
 
-// ─── READ with Include ─────────────────────────────────────────────────────────
 Console.WriteLine("\n── READ з Include (книги з авторами) ────────────────────────");
 foreach (var b in bookRepo.GetWithAuthor())
     Console.WriteLine($"  {b} | Автор: {b.Author?.FullName}");
 
-// ─── FILTER / SEARCH ─────────────────────────────────────────────────────────
 Console.WriteLine("\n── ФІЛЬТРАЦІЯ за жанром «Поезія» ────────────────────────────");
 foreach (var b in bookRepo.GetByGenre("Поезія"))
     Console.WriteLine($"  {b}");
@@ -69,7 +64,6 @@ Console.WriteLine("\n── ПОШУК за ключовим словом «лі
 foreach (var b in bookRepo.SearchByTitle("ліс"))
     Console.WriteLine($"  {b}");
 
-// ─── COMPLEX QUERY: GroupBy ───────────────────────────────────────────────────
 Console.WriteLine("\n── GroupBy: книги за жанром ─────────────────────────────────");
 var byGenre = ctx.Books
     .GroupBy(b => b.Genre)
@@ -80,7 +74,6 @@ var byGenre = ctx.Books
 foreach (var g in byGenre)
     Console.WriteLine($"  {g.Genre}: {g.Count} кн.");
 
-// ─── COMPLEX QUERY: Loans with Include chain ─────────────────────────────────
 Console.WriteLine("\n── Позики з Include (книга + автор + читач) ─────────────────");
 var loans = ctx.Loans
     .Include(l => l.Book)
@@ -92,7 +85,6 @@ foreach (var l in loans)
     Console.WriteLine($"  {l}\n    Книга: \"{l.Book?.Title}\" (автор: {l.Book?.Author?.FullName})" +
                       $"\n    Читач: {l.Member?.FullName}");
 
-// ─── UPDATE via repository ────────────────────────────────────────────────────
 Console.WriteLine("\n── UPDATE через репозиторій ─────────────────────────────────");
 var bookToUpdate = bookRepo.GetById(b2.Id)!;
 Console.WriteLine($"  До: {bookToUpdate}");
@@ -102,7 +94,6 @@ bookRepo.Update(bookToUpdate);
 bookRepo.Save();
 Console.WriteLine($"  Після: {bookToUpdate}");
 
-// ─── DELETE via repository ────────────────────────────────────────────────────
 Console.WriteLine("\n── DELETE через репозиторій ─────────────────────────────────");
 Console.WriteLine($"  Видаляємо книгу #{b5.Id}: \"{b5.Title}\"");
 bookRepo.Delete(b5.Id);

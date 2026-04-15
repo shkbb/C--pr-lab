@@ -24,7 +24,7 @@ public class LibraryContext : DbContext
             e.HasKey(a => a.Id);
             e.Property(a => a.FirstName).IsRequired().HasMaxLength(50);
             e.Property(a => a.LastName).IsRequired().HasMaxLength(50);
-            e.Ignore(a => a.FullName); // computed property, not stored
+            e.Ignore(a => a.FullName); 
         });
 
         modelBuilder.Entity<Book>(e =>
@@ -33,7 +33,7 @@ public class LibraryContext : DbContext
             e.Property(b => b.Title).IsRequired().HasMaxLength(200);
             e.Property(b => b.ISBN).HasMaxLength(20);
             e.Property(b => b.Genre).HasMaxLength(50);
-            e.Ignore(b => b.IsAvailable); // stored as column via default
+            e.Ignore(b => b.IsAvailable); 
             e.Property<bool>("IsAvailable").HasDefaultValue(true);
 
             e.HasOne(b => b.Author)

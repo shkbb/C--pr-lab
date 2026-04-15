@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ── Services ─────────────────────────────────────────────────────────────────
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<LibraryContext>(options =>
@@ -25,19 +24,16 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// Return validation errors as ProblemDetails
 builder.Services.AddProblemDetails();
 
 var app = builder.Build();
 
-// ── Ensure DB exists + seed ──────────────────────────────────────────────────
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<LibraryContext>();
     db.Database.EnsureCreated();
 }
 
-// ── Pipeline ─────────────────────────────────────────────────────────────────
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {

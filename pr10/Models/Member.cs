@@ -1,6 +1,5 @@
 namespace LibraryApp.Models;
 
-// New entity added in Practical 10 migration
 public class Member
 {
     public int Id { get; set; }

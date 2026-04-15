@@ -18,7 +18,7 @@ public class LibraryContext : DbContext
             .HasForeignKey(b => b.AuthorId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // Seed data for demo
+        
         modelBuilder.Entity<Author>().HasData(
             new Author { Id = 1, FirstName = "Тарас", LastName = "Шевченко", BirthYear = 1814 },
             new Author { Id = 2, FirstName = "Іван", LastName = "Франко", BirthYear = 1856 }

@@ -14,11 +14,11 @@
 
         <dt class="col-sm-2">Автор</dt>
         <dd class="col-sm-10">@Model.Book.AuthorFullName</dd>
-        
+
         <dt class="col-sm-2">Жанр</dt>
         <dd class="col-sm-10">@Model.Book.Genre</dd>
     </dl>
-    
+
     <form method="post">
         <input type="hidden" asp-for="Book.Id" />
         <input type="submit" value="Видалити" class="btn btn-danger" />

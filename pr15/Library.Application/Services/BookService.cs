@@ -42,7 +42,7 @@ public class BookService : IBookService
         var entity = _mapper.Map<Book>(dto);
         _repository.Add(entity);
         _repository.SaveChanges();
-        // Reload to get navigation property for mapping
+
         var created = _repository.GetById(entity.Id)!;
         return _mapper.Map<BookResponseDto>(created);
     }

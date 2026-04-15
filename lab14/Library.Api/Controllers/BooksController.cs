@@ -16,9 +16,9 @@ public class BooksController : ControllerBase
         _bookService = bookService;
     }
 
-    /// <summary>
-    /// Отримати всі книги
-    /// </summary>
+    
+
+    
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<BookResponseDto>), StatusCodes.Status200OK)]
     public IActionResult GetAll()
@@ -26,10 +26,10 @@ public class BooksController : ControllerBase
         return Ok(_bookService.GetAll());
     }
 
-    /// <summary>
-    /// Отримати книгу за ідентифікатором
-    /// </summary>
-    /// <param name="id">Id книги</param>
+    
+
+    
+
     [HttpGet("{id:int}")]
     [ProducesResponseType(typeof(BookResponseDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -38,14 +38,14 @@ public class BooksController : ControllerBase
         var book = _bookService.GetById(id);
         if (book is null)
             return NotFound(new { message = $"Book with id {id} not found." });
-            
+
         return Ok(book);
     }
 
-    /// <summary>
-    /// Знайти книги за назвою
-    /// </summary>
-    /// <param name="title">Назва книги або її частина</param>
+    
+
+    
+
     [HttpGet("search")]
     [ProducesResponseType(typeof(IEnumerable<BookResponseDto>), StatusCodes.Status200OK)]
     public IActionResult Search([FromQuery] string title)
@@ -53,9 +53,9 @@ public class BooksController : ControllerBase
         return Ok(_bookService.Search(title));
     }
 
-    /// <summary>
-    /// Створити нову книгу (Тільки Admin/Manager)
-    /// </summary>
+    
+
+    
     [HttpPost]
     [Authorize(Roles = "Admin,Manager")]
     [ProducesResponseType(typeof(BookResponseDto), StatusCodes.Status201Created)]
@@ -69,10 +69,10 @@ public class BooksController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
-    /// <summary>
-    /// Видалити книгу (Повний доступ)
-    /// </summary>
-    /// <param name="id">Id книги для видалення</param>
+    
+
+    
+
     [HttpDelete("{id:int}")]
     [Authorize(Policy = "FullLibraryAccess")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

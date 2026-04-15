@@ -5,22 +5,18 @@ using Microsoft.EntityFrameworkCore;
 Console.WriteLine("=== Library Management System — Практична 9 ===");
 Console.WriteLine("Демонстрація CRUD-операцій через Entity Framework Core + SQL Server\n");
 
-// Ensure database and schema are created
 using (var ctx = new LibraryContext())
 {
     ctx.Database.EnsureCreated();
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// CREATE
-// ─────────────────────────────────────────────────────────────────────────────
 Console.WriteLine("── CREATE ──────────────────────────────────────────────");
 
 int authorId, book1Id, book2Id;
 
 using (var ctx = new LibraryContext())
 {
-    // Clear previous demo data
+
     ctx.Books.RemoveRange(ctx.Books);
     ctx.Authors.RemoveRange(ctx.Authors);
     ctx.SaveChanges();
@@ -49,9 +45,6 @@ using (var ctx = new LibraryContext())
     Console.WriteLine($"  Збережено книгу:   {book3}");
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// READ
-// ─────────────────────────────────────────────────────────────────────────────
 Console.WriteLine("\n── READ ─────────────────────────────────────────────────");
 
 using (var ctx = new LibraryContext())
@@ -65,9 +58,6 @@ using (var ctx = new LibraryContext())
     }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// UPDATE
-// ─────────────────────────────────────────────────────────────────────────────
 Console.WriteLine("\n── UPDATE ───────────────────────────────────────────────");
 
 using (var ctx = new LibraryContext())
@@ -83,9 +73,6 @@ using (var ctx = new LibraryContext())
     }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// DELETE
-// ─────────────────────────────────────────────────────────────────────────────
 Console.WriteLine("\n── DELETE ───────────────────────────────────────────────");
 
 using (var ctx = new LibraryContext())
@@ -100,9 +87,6 @@ using (var ctx = new LibraryContext())
     }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// FINAL STATE
-// ─────────────────────────────────────────────────────────────────────────────
 Console.WriteLine("\n── ПІДСУМКОВИЙ СТАН БД ──────────────────────────────────");
 
 using (var ctx = new LibraryContext())

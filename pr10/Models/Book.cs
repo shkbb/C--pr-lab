@@ -7,7 +7,7 @@ public class Book
     public string ISBN { get; set; } = string.Empty;
     public int PublishedYear { get; set; }
 
-    // ──── NEW FIELD added in pr10 migration ────
+    
     public string Genre { get; set; } = string.Empty;
 
     public int AuthorId { get; set; }

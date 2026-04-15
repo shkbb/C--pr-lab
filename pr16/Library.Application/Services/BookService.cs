@@ -27,16 +27,16 @@ public class BookService : IBookService
     public IEnumerable<BookResponseDto> GetAll()
     {
         _logger.LogInformation("Отримання списку всіх книг.");
-        
+
         if (!_cache.TryGetValue(CacheKey, out IEnumerable<BookResponseDto>? cachedBooks))
         {
             _logger.LogInformation("Cache miss. Завантаження книг з БД.");
             var books = _repository.GetAll();
             cachedBooks = _mapper.Map<IEnumerable<BookResponseDto>>(books);
-            
+
             var cacheOptions = new MemoryCacheEntryOptions()
                 .SetAbsoluteExpiration(TimeSpan.FromMinutes(5));
-                
+
             _cache.Set(CacheKey, cachedBooks, cacheOptions);
         }
         else
@@ -74,10 +74,10 @@ public class BookService : IBookService
         var entity = _mapper.Map<Book>(dto);
         _repository.Add(entity);
         _repository.SaveChanges();
-        
+
         _logger.LogInformation("Книгу {Title} створено з ID={Id}", dto.Title, entity.Id);
+
         
-        // Invalidate cache
         _cache.Remove(CacheKey);
 
         var created = _repository.GetById(entity.Id)!;
@@ -93,15 +93,15 @@ public class BookService : IBookService
             _logger.LogWarning("Неможливо видалити. Книгу з ID={Id} не знайдено.", id);
             return false;
         }
-        
+
         _repository.Remove(book);
         _repository.SaveChanges();
-        
+
         _logger.LogInformation("Книгу з ID={Id} успішно видалено.", id);
+
         
-        // Invalidate cache
         _cache.Remove(CacheKey);
-        
+
         return true;
     }
 }

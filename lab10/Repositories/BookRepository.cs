@@ -37,7 +37,7 @@ public class BookRepository : IBookRepository
 
     public void Save() => _context.SaveChanges();
 
-    // ── LINQ queries ─────────────────────────────────────────────────────────
+    
 
     public IEnumerable<Book> GetByGenre(string genre) =>
         _context.Books

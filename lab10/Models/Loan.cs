@@ -8,7 +8,7 @@ public class Loan
 
     public bool IsReturned => ReturnDate.HasValue;
 
-    // Foreign keys
+    
     public int BookId { get; set; }
     public Book? Book { get; set; }
 

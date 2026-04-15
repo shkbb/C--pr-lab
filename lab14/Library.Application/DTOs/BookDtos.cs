@@ -35,5 +35,5 @@ public class BookResponseDto
     public int PublishedYear { get; set; }
     public string Genre { get; set; } = string.Empty;
     public int AuthorId { get; set; }
-    public string AuthorFullName { get; set; } = string.Empty;  // flattened for API consumers
+    public string AuthorFullName { get; set; } = string.Empty;  
 }

@@ -7,7 +7,7 @@ public class Author
     public string LastName { get; set; } = string.Empty;
     public int BirthYear { get; set; }
 
-    // Navigation property: one Author → many Books
+    
     public List<Book> Books { get; set; } = new();
 
     public override string ToString() =>

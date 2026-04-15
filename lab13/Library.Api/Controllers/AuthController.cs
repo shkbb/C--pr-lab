@@ -20,7 +20,7 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public IActionResult Login([FromBody] LoginRequest request)
     {
-        // Dummy authentication
+
         if (request.Username == "admin" && request.Password == "admin")
         {
             var claims = new[]

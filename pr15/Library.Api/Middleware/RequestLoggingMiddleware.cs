@@ -16,7 +16,7 @@ public class RequestLoggingMiddleware
     public async Task InvokeAsync(HttpContext context)
     {
         var sw = Stopwatch.StartNew();
-        
+
         try
         {
             await _next(context);
@@ -34,7 +34,6 @@ public class RequestLoggingMiddleware
     }
 }
 
-// Extension method used to add the middleware to the HTTP request pipeline.
 public static class RequestLoggingMiddlewareExtensions
 {
     public static IApplicationBuilder UseRequestLogging(this IApplicationBuilder builder)

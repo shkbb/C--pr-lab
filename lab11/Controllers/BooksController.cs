@@ -16,8 +16,8 @@ public class BooksController : ControllerBase
         _bookService = bookService;
     }
 
-    /// <summary>Отримати список всіх книг</summary>
-    /// <returns>200 OK зі списком BookResponseDto</returns>
+    
+
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<BookResponseDto>), StatusCodes.Status200OK)]
     public IActionResult GetAll()
@@ -25,7 +25,7 @@ public class BooksController : ControllerBase
         return Ok(_bookService.GetAll());
     }
 
-    /// <summary>Отримати книгу за ідентифікатором</summary>
+    
     [HttpGet("{id:int}")]
     [ProducesResponseType(typeof(BookResponseDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -37,7 +37,7 @@ public class BooksController : ControllerBase
         return Ok(book);
     }
 
-    /// <summary>Створити нову книгу</summary>
+    
     [HttpPost]
     [ProducesResponseType(typeof(BookResponseDto), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
@@ -50,7 +50,7 @@ public class BooksController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
-    /// <summary>Видалити книгу за ідентифікатором</summary>
+    
     [HttpDelete("{id:int}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

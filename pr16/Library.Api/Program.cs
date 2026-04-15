@@ -9,14 +9,12 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllers(options => 
 {
     options.Filters.Add<ActionLoggingFilter>();
 });
 builder.Services.AddMemoryCache();
 
-// Configure infrastructure components (DbContext, Repositories)
 builder.Services.AddDbContext<LibraryContext>(options =>
     options.UseSqlServer(
         "Server=localhost,1433;Database=LibraryDB_lab12;User Id=sa;" +
@@ -24,11 +22,9 @@ builder.Services.AddDbContext<LibraryContext>(options =>
 
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 
-// Configure application components (Services, AutoMapper)
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddAutoMapper(typeof(BookMappingProfile));
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -40,7 +36,6 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// Ensure DB is created for demo purposes
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<LibraryContext>();

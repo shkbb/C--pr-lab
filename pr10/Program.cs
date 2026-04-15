@@ -5,21 +5,16 @@ using Microsoft.EntityFrameworkCore;
 Console.WriteLine("=== Library Management System — Практична 10 ===");
 Console.WriteLine("Демонстрація: міграції, нові сутності, change tracking, SaveChanges()\n");
 
-// ─── Ensure schema is up-to-date (simulates applying migration) ───────────────
-// In a real workflow: dotnet ef migrations add AddGenreAndMember
-//                    dotnet ef database update
-// Here we use EnsureCreated() for demo purposes.
 using (var ctx = new LibraryContext())
 {
     ctx.Database.EnsureCreated();
-    // Clear previous data
+
     ctx.Books.RemoveRange(ctx.Books);
     ctx.Authors.RemoveRange(ctx.Authors);
     ctx.Members.RemoveRange(ctx.Members);
     ctx.SaveChanges();
 }
 
-// ─── CREATE (Short-lived context — pattern for short operations) ──────────────
 Console.WriteLine("── Шаблон короткотривалого DbContext (CREATE) ──────────────");
 
 int authorId;
@@ -47,7 +42,6 @@ using (var ctx = new LibraryContext())
     Console.WriteLine($"  Додано книгу: {b2}");
 }
 
-// ─── NEW ENTITY: Member ───────────────────────────────────────────────────────
 Console.WriteLine("\n── Нова сутність Member (з'явилась у міграції pr10) ─────────");
 int memberId;
 using (var ctx = new LibraryContext())
@@ -59,18 +53,17 @@ using (var ctx = new LibraryContext())
     Console.WriteLine($"  Зареєстровано читача: {m}");
 }
 
-// ─── CHANGE TRACKING DEMO ────────────────────────────────────────────────────
 Console.WriteLine("\n── Change Tracking та SaveChanges() ─────────────────────────");
 
 using (var ctx = new LibraryContext())
 {
     var book = ctx.Books.Find(book1Id)!;
 
-    // Check initial state
+    
     var entry = ctx.Entry(book);
     Console.WriteLine($"  Стан до зміни:  {entry.State}");
 
-    book.Genre = "Драма-феєрія";  // Modify tracked entity
+    book.Genre = "Драма-феєрія";  
 
     Console.WriteLine($"  Стан після зміни: {entry.State}");
     Console.WriteLine($"  Стара назва жанру: {entry.OriginalValues[nameof(Book.Genre)]}");
@@ -80,7 +73,6 @@ using (var ctx = new LibraryContext())
     Console.WriteLine($"  Після SaveChanges(): {entry.State}");
 }
 
-// ─── UPDATE via short-lived context ──────────────────────────────────────────
 Console.WriteLine("\n── UPDATE (short-lived context) ─────────────────────────────");
 
 using (var ctx = new LibraryContext())
@@ -92,7 +84,6 @@ using (var ctx = new LibraryContext())
     Console.WriteLine($"  Після: {member}");
 }
 
-// ─── DELETE ───────────────────────────────────────────────────────────────────
 Console.WriteLine("\n── DELETE ───────────────────────────────────────────────────");
 
 using (var ctx = new LibraryContext())
@@ -104,7 +95,6 @@ using (var ctx = new LibraryContext())
     Console.WriteLine("  Видалено.");
 }
 
-// ─── READ FINAL STATE ─────────────────────────────────────────────────────────
 Console.WriteLine("\n── ПІДСУМКОВИЙ СТАН ─────────────────────────────────────────");
 
 using (var ctx = new LibraryContext())

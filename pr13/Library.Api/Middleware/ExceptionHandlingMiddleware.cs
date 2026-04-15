@@ -30,12 +30,12 @@ public class ExceptionHandlingMiddleware
     private static Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
         context.Response.ContentType = "application/json";
+
         
-        // Default to 500 Internal Server Error
         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
         var resultMessage = "Internal Server Error. Please try again later.";
 
-        // We can map specific exception types to HTTP status codes
+        
         if (exception is ArgumentException || exception is ArgumentNullException)
         {
             context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -43,8 +43,8 @@ public class ExceptionHandlingMiddleware
         }
         else if (exception is InvalidOperationException)
         {
-            // E.g. Business rule violation
-            context.Response.StatusCode = (int)HttpStatusCode.UnprocessableEntity; // 422
+
+            context.Response.StatusCode = (int)HttpStatusCode.UnprocessableEntity; 
             resultMessage = exception.Message;
         }
 
@@ -52,7 +52,7 @@ public class ExceptionHandlingMiddleware
         {
             statusCode = context.Response.StatusCode,
             message = resultMessage,
-            detailed = exception.Message // in production, detailed message should be hidden
+            detailed = exception.Message 
         });
 
         return context.Response.WriteAsync(result);

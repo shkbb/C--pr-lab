@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LibraryApi.DTOs;
 
-// DTO for creating/updating a book
 public class BookCreateDto
 {
     [Required(ErrorMessage = "Назва книги є обов'язковою")]
@@ -22,7 +21,6 @@ public class BookCreateDto
     public int AuthorId { get; set; }
 }
 
-// DTO for responses (no navigation property — avoids cycles)
 public class BookResponseDto
 {
     public int Id { get; set; }

@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LibraryApp.Repositories;
 
-// Generic repository interface
 public interface IRepository<T> where T : class
 {
     IEnumerable<T> GetAll();
@@ -14,7 +13,6 @@ public interface IRepository<T> where T : class
     void Save();
 }
 
-// Book-specific repository with LINQ queries
 public interface IBookRepository : IRepository<Book>
 {
     IEnumerable<Book> GetByGenre(string genre);

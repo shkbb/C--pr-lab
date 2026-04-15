@@ -39,7 +39,7 @@ public class BookService : IBookService
         _context.Books.Add(book);
         _context.SaveChanges();
 
-        // Reload with author navigation
+        
         _context.Entry(book).Reference(b => b.Author).Load();
         return ToDto(book);
     }
